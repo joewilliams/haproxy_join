@@ -1,0 +1,84 @@
+#! /usr/bin/ruby
+
+## Copyright 2009, Joe Williams <joe@joetify.com>
+##
+## Permission is hereby granted, free of charge, to any person
+## obtaining a copy of this software and associated documentation
+## files (the "Software"), to deal in the Software without
+## restriction, including without limitation the rights to use,
+## copy, modify, merge, publish, distribute, sublicense, and/or sell
+## copies of the Software, and to permit persons to whom the
+## Software is furnished to do so, subject to the following
+## conditions:
+##
+## The above copyright notice and this permission notice shall be
+## included in all copies or substantial portions of the Software.
+##
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+## EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+## OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+## NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+## HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+## OTHER DEALINGS IN THE SOFTWARE.
+
+
+def write_main(haproxy_dir)
+  global = File.new(
+    File.join(haproxy_dir, "conf", "global.cfg"), "r"
+  )
+
+  defaults = File.new(
+    File.join(haproxy_dir, "conf", "defaults.cfg"), "r"
+  )
+
+  frontend = File.new(
+    File.join(haproxy_dir, "conf", "frontend.cfg"), "r"
+  )
+
+  @haproxy_config.write(global.read)
+  @haproxy_config.write(defaults.read)
+  @haproxy_config.write(frontend.read)
+
+  global.close
+  defaults.close
+  frontend.close
+end
+
+def write_d(config_d)
+  config_files = Dir.new(config_d).entries
+
+  # get rid of "." and ".."
+
+  config_files.delete(".")
+  config_files.delete("..")
+
+  config_files.each do |file|
+    @haproxy_config.write(
+      File.new(File.join(config_d, file), "r").read
+    )
+  end
+end
+
+def main
+  haproxy_filename = ARGV[0]
+  haproxy_dir = ARGV[1]
+
+  @haproxy_config = File.new(
+    File.join(haproxy_dir, haproxy_filename), "w"
+  )
+
+  write_main(haproxy_dir)
+
+  write_d(
+    File.join(haproxy_dir, "conf", "frontend.d")
+  )
+  write_d(
+    File.join(haproxy_dir, "conf", "backend.d")
+  )
+
+  @haproxy_config.close
+end
+
+main

@@ -1,0 +1,21 @@
+haproxy_join : break up a monolithic haproxy config and join the files together
+
+This code is available as Open Source Software under the MIT license.
+
+Details:
+
+This script accepts a filename (FILE_NAME) as the first arg  and a path (HAPROXY_PATH) as the second. It expects  the haproxy files/directories to be located as follows:
+
+HAPROXY_PATH/conf/global.cfg (file)
+HAPROXY_PATH/conf/defaults.cfg (file)
+HAPROXY_PATH/conf/frontend.cfg (file)
+HAPROXY_PATH/conf/frontend.d (dir)
+HAPROXY_PATH/conf/backend.d (dir)
+
+The script will concatenate these files together to in the appropriate order to create a single large haproxy configuration at HAPROXY_PATH/FILE_NAME
+
+Usage:
+
+# haproxy_join haproxy.cfg /etc/haproxy/
+
+This will join all the configs under /etc/haproxy/conf/ in the above directory format and write the resulting file at /etc/haproxy/haproxy.cfg.
