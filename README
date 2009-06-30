@@ -10,14 +10,12 @@ HAPROXY_PATH/conf/global.cfg (file)
 HAPROXY_PATH/conf/defaults.cfg (file)
 HAPROXY_PATH/conf/frontend.cfg (file)
 HAPROXY_PATH/conf/frontend.d (dir of frontend configs)
-HAPROXY_PATH/conf/backend.d (dir of backend configs)
+HAPROXY_PATH/conf/backend.d (dir backend configs)
 
-The script will concatenate these files together to in the appropriate order to create a single large haproxy configuration at HAPROXY_PATH/FILE_NAME
+The script will concatenate these files together to in the appropriate order to create a single large haproxy configuration at HAPROXY_PATH/FILE_NAME. Also note that under the frontend.d and backend.d the script only picks up files with a ".cfg" extension. It wil also attempt to create a backup of the already joined config file.
 
 Usage:
 
 # haproxy_join haproxy.cfg /etc/haproxy/
 
 This will join all the configs under /etc/haproxy/conf/ in the above directory format and write the resulting file at /etc/haproxy/haproxy.cfg.
-
-Thanks to Holger Just for his haproxy config tool (http://github.com/finnlabs/haproxy/tree/master) which provided the inspiration for this one.
