@@ -19,3 +19,5 @@ Usage:
 # haproxy_join haproxy.cfg /etc/haproxy/
 
 This will join all the configs under /etc/haproxy/conf/ in the above directory format and write the resulting file at /etc/haproxy/haproxy.cfg.
+
+Thanks to Holger Just for his haproxy config tool (http://github.com/finnlabs/haproxy/tree/master) which provided the inspiration for this one.
