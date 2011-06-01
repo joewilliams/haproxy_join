@@ -85,7 +85,7 @@ def main
       begin
         File.copy(main_config, main_config + ".BAK-" + Time.now.strftime("%Y%m%d%H%M%S"))
       rescue NoMethodError
-        File.copy(main_config, main_config + ".BAK-" + Time.now.strftime("%Y%m%d%H%M%S"))
+        FileUtils.cp(main_config, main_config + ".BAK-" + Time.now.strftime("%Y%m%d%H%M%S"))
       end
     end
 
