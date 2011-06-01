@@ -24,7 +24,12 @@
 ## OTHER DEALINGS IN THE SOFTWARE.
 
 require 'find'
-require 'ftools'
+begin
+  require 'ftools'
+rescue LoadError
+  # Not on a 1.8 vm. Try 1.9 fileutils
+  require 'fileutils'
+end
 
 def write_main(haproxy_dir)
   global = File.new(
@@ -77,7 +82,11 @@ def main
     main_config = File.join(haproxy_dir, haproxy_filename)
 
     if File.exist?(main_config)
-      File.copy(main_config, main_config + ".BAK-" + Time.now.strftime("%Y%m%d%H%M%S"))
+      begin
+        File.copy(main_config, main_config + ".BAK-" + Time.now.strftime("%Y%m%d%H%M%S"))
+      rescue NoMethodError
+        File.copy(main_config, main_config + ".BAK-" + Time.now.strftime("%Y%m%d%H%M%S"))
+      end
     end
 
     @haproxy_config = File.new(main_config, "w")
