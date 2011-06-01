@@ -4,7 +4,7 @@ require 'rake/rdoctask'
 
 spec = Gem::Specification.new do |s|
   s.name = "haproxy_join"
-  s.version = "0.1"
+  s.version = "0.2"
   s.author = "joe williams"
   s.email = "joe@joetify.com"
   s.homepage = "http://github.com/joewilliams/haproxy_join"
