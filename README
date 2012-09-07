@@ -6,11 +6,11 @@ Details:
 
 This script accepts a filename (FILE_NAME) as the first arg  and a path (HAPROXY_PATH) as the second. It expects  the haproxy files/directories to be located as follows:
 
-HAPROXY_PATH/conf/global.cfg (file)
-HAPROXY_PATH/conf/defaults.cfg (file)
-HAPROXY_PATH/conf/frontend.cfg (file)
-HAPROXY_PATH/conf/frontend.d (dir of frontend configs)
-HAPROXY_PATH/conf/backend.d (dir backend configs)
+HAPROXY_PATH/conf/global.cfg (file - required)
+HAPROXY_PATH/conf/defaults.cfg (file - required)
+HAPROXY_PATH/conf/frontend.cfg (file - required)
+HAPROXY_PATH/conf/frontend.d (dir of frontend configs - optional)
+HAPROXY_PATH/conf/backend.d (dir backend configs - optional)
 
 The script will concatenate these files together to in the appropriate order to create a single large haproxy configuration at HAPROXY_PATH/FILE_NAME. Also note that under the frontend.d and backend.d the script only picks up files with a ".cfg" extension. It wil also attempt to create a backup of the already joined config file.
 
