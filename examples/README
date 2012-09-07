@@ -1,0 +1,7 @@
+
+example directory and file tree layout so you can see (and copy for your
+own use) the supported structure
+
+to create the output file (example/haproxy/conf/haproxy.cfg) run:
+sh build.sh 
+
